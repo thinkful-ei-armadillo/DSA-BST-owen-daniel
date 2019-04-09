@@ -170,7 +170,8 @@ function main() {
 
   // console.log(BST);
 
-  console.log(height(BST));
+  // console.log(height(BST));
+  console.log(isTree(BST));
 }
 
 main();
@@ -221,19 +222,58 @@ function height(BST, count = 1) {
   }
 
 }
+// O(log(n)^2)
 
 // Is it a BST?
 // Write an algorithm to check whether an arbitrary binary tree is a binary search tree, 
 // assuming the tree does not contain duplicates.
 
+function isTree(t) {
+  // if no root, not a tree
+  if (!t.key) {
+    return false;
+  }
+
+  // if two children
+  if (t.right && t.left) {
+    isTree(t.right);
+    isTree(t.left);
+  }
+  // if only a right child
+  if (t.right) {
+    if (t.right.key < t.key) {
+      return false;
+    }
+    else {
+      return isTree(t.right);
+    }
+  }
+  // if only a left child
+  if (t.left) {
+    if (t.left.key < t.key) {
+      return false;
+    }
+    else {
+      return isTree(t.left);
+    }
+  }
+
+  // if at end of the tree
+  if (!t.right && !t.left) {
+    return true;
+  }
+}
+// O(log(n)^2)
 
 // 3rd largest node
 // Write an algorithm to find the 3rd largest node in a binary search tree.
 
 
+
 // Balanced BST
 // Write an algorithm that checks if a BST is balanced (i.e., a tree where no 2 leaves differ in distance 
 // from the root by more than 1).
+
 
 
 // Are they the same BSTs?
