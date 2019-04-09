@@ -179,16 +179,43 @@ main();
 // Show with an example the result of executing this program. What is the runtime of this algorithm?
 
 function tree(t){
-  if(!t){
+  if(!t) {
     return 0;
   }
   return tree(t.left) + t.value + tree(t.right);
 }
 
+// this function adds the value of all nodes in the BST by calling the function recursively and passing in each child node of the current node.
+// it would return a final numerical value as the total value of the tree, if the values are numbers. 
+// if strings, it will concatenate all characters together from the leftmost node to the rightmost node of the the BST.
+// O(2n)
 
 // Height of a BST
 // Write an algorithm to find the height of a binary search tree. What is the time complexity of your algorithm?
 
+function height(BST, countLeft = 0, countRight = 0) {
+  if (!BST) {
+    return 0;
+  }
+
+  if (BST.right) {
+    countRight++;
+  }
+  if (BST.left) {
+    countLeft++;
+  }
+
+  if (!BST.left && !BST.right) {
+    if (countLeft > countRight) {
+      return countLeft;
+    }
+    if (countRight > countLeft) {
+      return countRight;
+    }
+  }
+
+  return height(BST.left, countLeft, countRight);
+}
 
 // Is it a BST?
 // Write an algorithm to check whether an arbitrary binary tree is a binary search tree, 
