@@ -168,7 +168,9 @@ function main() {
   BST.insert('O', 'O');
   BST.insert('N', 'N');
 
-  console.log(BST);
+  // console.log(BST);
+
+  console.log(height(BST));
 }
 
 main();
@@ -193,28 +195,31 @@ function tree(t){
 // Height of a BST
 // Write an algorithm to find the height of a binary search tree. What is the time complexity of your algorithm?
 
-function height(BST, countLeft = 0, countRight = 0) {
-  if (!BST) {
+function height(BST, count = 1) {
+  if (BST.key === null) {
     return 0;
   }
 
-  if (BST.right) {
-    countRight++;
-  }
-  if (BST.left) {
-    countLeft++;
-  }
-
+  // base case
   if (!BST.left && !BST.right) {
-    if (countLeft > countRight) {
-      return countLeft;
-    }
-    if (countRight > countLeft) {
-      return countRight;
-    }
+    return count;
   }
 
-  return height(BST.left, countLeft, countRight);
+  // if two children
+  if (BST.right && BST.left) {
+    return height(BST.left, count + 1) > height(BST.right, count + 1) ? height(BST.left, count + 1) : height(BST.right, count + 1);
+  }
+
+  // if one child on left
+  if (BST.left) {
+    return height(BST.left, count + 1);
+  }
+
+  // if one child on right
+  if (BST.right) {
+    return height(BST.right, count + 1);
+  }
+
 }
 
 // Is it a BST?
